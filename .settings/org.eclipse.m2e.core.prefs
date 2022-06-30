@@ -1,0 +1,4 @@
+activeProfiles=LOCAL, \!DEV, \!QA, \!QA2, \!QA3, \!UAT, \!BROWSERSTACK_EDGE13, \!BROWSERSTACK_IE11, \!BROWSERSTACK_IE10, \!BROWSERSTACK_FF, \!BROWSERSTACK_CHROME, \!BROWSERSTACK_SAFARI
+eclipse.preferences.version=1
+resolveWorkspaceProjects=true
+version=1

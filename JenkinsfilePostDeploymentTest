@@ -1,0 +1,188 @@
+def CURRENT_STAGE = ""
+
+pipeline {
+    agent {
+        kubernetes {
+
+          // label establishes the name of the agent pod created.
+          // When created, kubernetes will append random strings to the end for uniqueness.
+          label 'e2-selenium-slave'
+
+          // yaml is a description of the pod and it's containers that we need to build the job.
+          // https://kubernetes.io/docs/tasks/configure-pod-container/
+          // https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core
+          yaml """
+    apiVersion: v1
+    kind: Pod
+    spec:
+      serviceAccountName: eit-user
+      nodeSelector:
+        kops.k8s.io/instancegroup: eitnodes
+      volumes:
+      - name: docker-socket
+        hostPath:
+          path: /var/run/docker.sock
+      - name: jenkins-maven-storage-pvc
+        persistentVolumeClaim:
+          claimName: jenkins-maven-storage
+      containers:
+      - name: maven
+        image: docker.ci1.carlsonwagonlit.com:18090/cwt/devtools:alpine
+        command:
+        - cat
+        tty: true
+        volumeMounts:
+          - name: jenkins-maven-storage-pvc
+            mountPath: /root/.m2/repository
+        resources:
+          requests:
+            memory: "768Mi"
+            cpu: "1250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "1750m"
+      - name: docker
+        image: docker:stable
+        command:
+        - cat
+        tty: true
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-socket
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "75m"
+          limits:
+            memory: "64Mi"
+            cpu: "125m"
+      - name: kubectl
+        image: dtzar/helm-kubectl:2.14.1
+        command:
+        - cat
+        tty: true
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "150m"
+          limits:
+            memory: "192Mi"
+            cpu: "250m"
+    """
+        }
+}
+    // environment variables
+    environment {
+        RUN_ENV = "${TEST_ENVIRONMENT}"
+        MVN_PROFILE = "${BROWSER},${TEST_ENVIRONMENT},CHROME_PERFORMANCE_DEBUGGING"
+        MVN_VERSION = 'M3'
+    }
+        // Upper environment tests (UAT/Training/Production)
+        // NOTE: lookup how to avoid these showing up as failure steps in Jenkins when they aren't invoked i.e. when environment = DEV
+    stages {
+        stage ('Puff Test') {
+            when {
+                anyOf {
+                    environment name: 'RUN_ENV', value: 'UAT';
+                    environment name: 'RUN_ENV', value: 'Training';
+                    environment name: 'RUN_ENV', value: 'QA3';
+                }
+            }
+            steps {
+                script {
+                    CURRENT_STAGE = sh(returnStdout: true, script: 'echo Puff Tests')
+                }
+                catchError{
+                    sh 'mvn clean -P ${MVN_PROFILE} -Dit.test=PuffTest verify'
+                }
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/*.xml'
+                }
+                success {
+                    sh 'echo "Completed successfully"'
+                }
+                failure {
+                    sh 'echo "Failed to complete tests"'
+                }
+            }
+        }
+        stage ('Admin Functions Tests') {
+            when {
+                anyOf {
+                    environment name: 'RUN_ENV', value: 'UAT';
+                    environment name: 'RUN_ENV', value: 'Training';
+                    environment name: 'RUN_ENV', value: 'QA3';
+                }
+            }
+            steps {
+                catchError{
+                    sh 'mvn clean -P ${MVN_PROFILE} -Dit.test=AdminFunctions verify'
+                }
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/*.xml'
+                }
+                success {
+                    sh 'echo "Completed successfully"'
+                }
+                failure {
+                    sh 'echo "Failed to complete tests"'
+                }
+            }
+        }
+        stage ('Smoke Test') {
+            when {
+                anyOf {
+                    environment name: 'RUN_ENV', value: 'QA3';
+                }
+            }
+            steps {
+                catchError{
+                    sh 'mvn clean -P ${MVN_PROFILE} -Dit.test=SmokeTest verify'
+                }
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/*.xml'
+                }
+                success {
+                    sh 'echo "Completed successfully"'
+                }
+                failure {
+                    sh 'echo "Failed to complete tests"'
+                }
+            }
+        }
+        stage ('Deployment Scenarios Tests') {
+            when {
+                anyOf {
+                    environment name: 'RUN_ENV', value: 'UAT';
+                    environment name: 'RUN_ENV', value: 'Training';
+                    environment name: 'RUN_ENV', value: 'QA3';
+                }
+            }
+            steps {
+                script {
+                    CURRENT_STAGE = sh(returnStdout: true, script: 'echo Deployment Scenarios Tests')
+                }
+                catchError{
+                    sh 'mvn clean -P ${MVN_PROFILE} -Dit.test=DeploymentScenarios verify'
+                }
+            }
+            post {
+                always {
+                    junit 'target/failsafe-reports/*.xml'
+                }
+                success {
+                    sh 'echo "Completed successfully"'
+                }
+                failure {
+                    sh 'echo "Failed to complete tests"'
+                }
+            }
+        }
+    }
+}

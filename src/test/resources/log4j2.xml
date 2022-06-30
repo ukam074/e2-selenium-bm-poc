@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.apache.log4j.xml" level="info"/>
+    <Root level="info">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+  </Loggers>
+</Configuration>
+
+
+        <!--      <JsonLayout objectMessageAsJsonObject="true">
+                <KeyValuePair key="runId" value="$${ctx:id}"/>
+                <KeyValuePair key="testClass" value="$${ctx:testClass}"/>
+                <KeyValuePair key="testMethod" value="$${ctx:testMethod}"/>
+                <KeyValuePair key="testDisplayName" value="$${ctx:testDisplayName}"/>
+                <KeyValuePair key="e2env" value="$${ctx:e2env}"/>
+                <KeyValuePair key="e2url" value="$${ctx:e2url}"/>
+                <KeyValuePair key="testStart" value="$${ctx:testStart}"/>
+                <KeyValuePair key="testEnd" value="$${ctx:testEnd}"/>
+                <KeyValuePair key="eventNumber" value="$${ctx:eventNumber}"/>
+              </JsonLayout>
+
+              <Policies>
+                <OnStartupTriggeringPolicy/>
+              </Policies>
+
+        -->
+<!--    <Socket name="Socket" host="vrnv02de04613.int.carlsonwagonlit.com" port="4444">-->
+<!--      <JsonLayout compact="true" eventEol="true" objectMessageAsJsonObject="true">-->
+<!--        <KeyValuePair key="runId" value="$${ctx:id}"/>-->
+<!--        <KeyValuePair key="testClass" value="$${ctx:testClass}"/>-->
+<!--        <KeyValuePair key="testMethod" value="$${ctx:testMethod}"/>-->
+<!--        <KeyValuePair key="testDisplayName" value="$${ctx:testDisplayName}"/>-->
+<!--        <KeyValuePair key="e2env" value="$${ctx:e2env}"/>-->
+<!--        <KeyValuePair key="e2url" value="$${ctx:e2url}"/>-->
+<!--        <KeyValuePair key="testStart" value="$${ctx:testStart}"/>-->
+<!--        <KeyValuePair key="testEnd" value="$${ctx:testEnd}"/>-->
+<!--        <KeyValuePair key="eventNumber" value="$${ctx:eventNumber}"/>-->
+<!--        <KeyValuePair key="result" value="$${ctx:result}"/>-->
+<!--        <KeyValuePair key="chromeDebugging" value="$${ctx:chromeDebugging}"/>-->
+<!--      </JsonLayout>-->
+<!--    </Socket>-->
+
+<!--    <Socket name="statistics" host="vrnv02de04613.int.carlsonwagonlit.com" port="4200">-->
+<!--      <JsonLayout compact="true" eventEol="true" objectMessageAsJsonObject="true">-->
+<!--        <KeyValuePair key="runId" value="$${ctx:id}"/>-->
+<!--        <KeyValuePair key="testClass" value="$${ctx:testClass}"/>-->
+<!--        <KeyValuePair key="testMethod" value="$${ctx:testMethod}"/>-->
+<!--        <KeyValuePair key="testDisplayName" value="$${ctx:testDisplayName}"/>-->
+<!--        <KeyValuePair key="e2env" value="$${ctx:e2env}"/>-->
+<!--        <KeyValuePair key="e2url" value="$${ctx:e2url}"/>-->
+<!--        <KeyValuePair key="chromeDebugging" value="$${ctx:chromeDebugging}"/>-->
+<!--        <KeyValuePair key="jvmargs" value="$${ctx:jvmargs}"/>-->
+<!--        <KeyValuePair key="maxMemory" value="$${ctx:maxMemory}"/>-->
+<!--        <KeyValuePair key="totalMemory" value="$${ctx:totalMemory}"/>-->
+<!--        <KeyValuePair key="freeMemory" value="$${ctx:freeMemory}"/>-->
+<!--      </JsonLayout>-->
+<!--    </Socket>-->
+
+ <!--   <Appenders>
+      <Null name="CircularFile" />
+    </Appenders>
+
+  </Appenders>
+  <Loggers>
+  -->
+    <!--<Logger name="webdriver.tests.AbstractBaseIT" level="info" additivity="false">-->
+    <!--<AppenderRef ref="PerfLog"/>-->
+    <!--</Logger>-->
+
+
+    <!--Logger name="webdriver.utils.junit.LoggingTestWatcher" level="info" additivity="false"-->
+      <!--      <AppenderRef ref="PerfLog"/>-->
+      <!--      <AppenderRef ref="Socket"/>-->
+      <!--AppenderRef ref="CircularFile"/-->
+    <!--/Logger-->
+<!--
+    <Logger name="StatsLogger" level="info" additivity="true">
+      <AppenderRef ref="statistics"/>
+      <AppenderRef ref="CircularFile"/>
+    </Logger>
+
+    <Root level="warn">
+      <AppenderRef ref="Console"/>
+    </Root>
+
+  </Loggers>
+</Configuration>
+
+
+-->
+
+

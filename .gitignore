@@ -1,0 +1,17 @@
+# IntelliJ user data
+.idea/**
+*.iml
+*.swp
+
+# Useful excludes
+.svn/**
+
+# OS X excludes
+.DS_STORE
+
+src/test/java/webdriver/tests/james
+src/test/resources/screenshots
+src/test/resources/reports
+/target
+debug.log
+null/

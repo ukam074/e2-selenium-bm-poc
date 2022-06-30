@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.cwtsatotravel.e2</groupId>
+  <artifactId>E2i_se</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>e2-solutions-automation</name>
+
+  <description>
+    CWT E2i Selenium Webdriver Framework
+  </description>
+
+  <inceptionYear>2015</inceptionYear>
+
+  <prerequisites>
+    <maven>3</maven>
+  </prerequisites>
+
+  <repositories>
+    <repository>
+      <id>e2thirdparty</id>
+      <name>E2 releases artifacts on Nexus</name>
+      <url>https://ci1.carlsonwagonlit.com/nexus/repository/e2thirdparty/</url>
+    </repository>
+    <repository>
+      <id>releases</id>
+      <name>releases</name>
+      <url>https://ci1.carlsonwagonlit.com/nexus/repository/releases/</url>
+    </repository>
+    <repository>
+      <id>oracle</id>
+      <name>oracle</name>
+      <url>https://ci1.carlsonwagonlit.com/nexus/repository/oracle/</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <failIfNoTests>true</failIfNoTests>
+    <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
+    <surefire.rerunFailingTestsCount>0</surefire.rerunFailingTestsCount>
+    <performance.debugging>off</performance.debugging>
+    <cucumber.version>4.3.1</cucumber.version>
+    <surefire.junit47.version>3.0.0-M4</surefire.junit47.version>
+    <surefire.version>3.0.0-M4</surefire.version>
+    <failsafe.version>3.0.0-M4</failsafe.version>
+  </properties>
+
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.1-jre</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.29</version>
+    </dependency>
+    <!-- cucumber bdd deps -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.4.0-b180830.0359</version>
+    </dependency>
+    <dependency>
+      <groupId>com.aventstack</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>4.0.8</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.oracle.jdbc/ojdbc8 -->
+    <dependency>
+      <groupId>com.oracle.weblogic</groupId>
+      <artifactId>xmlparserv2_sans_jaxp_services</artifactId>
+      <version>12.1.3-0-0</version>
+    </dependency>
+    <dependency>
+      <groupId>ojdbc.oracle</groupId>
+      <artifactId>ojdbc8</artifactId>
+      <version>12.2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.10</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc14</artifactId>
+      <version>1.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.141.59</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib-nodep</artifactId>
+      <version>3.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.soap</groupId>
+      <artifactId>javax.xml.soap-api</artifactId>
+      <version>1.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.messaging.saaj</groupId>
+      <artifactId>saaj-impl</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongo-java-driver</artifactId>
+      <version>3.12.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core -->
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-core</artifactId>
+      <version>3.11.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>2.37.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.cssparser/cssparser -->
+    <dependency>
+      <groupId>net.sourceforge.cssparser</groupId>
+      <artifactId>cssparser</artifactId>
+      <version>0.9.27</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>5.2.3.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.2.3.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>5.2.1.RELEASE</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>5.2.1.RELEASE</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
+    <dependency>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.1-api</artifactId>
+      <version>1.0.2.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>2.0.18</version>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.weblogic</groupId>
+      <artifactId>oracle.xdb_12.1.0</artifactId>
+      <version>12.1.3-0-0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.15.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20180813</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.googlecode.junit-toolbox</groupId>
+      <artifactId>junit-toolbox</artifactId>
+      <version>2.4</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.17.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.17.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun</groupId>
+      <artifactId>jdmk</artifactId>
+      <version>1.0-b02</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun</groupId>
+      <artifactId>rowset</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>base.javafx</groupId>
+      <artifactId>javafx</artifactId>
+      <version>8.60.11</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.json.bind</groupId>
+      <artifactId>javax.json.bind-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse</groupId>
+      <artifactId>yasson</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
+    <dependency>
+      <groupId>javax.xml.parsers</groupId>
+      <artifactId>jaxp-api</artifactId>
+      <version>1.4.5</version>
+    </dependency>
+
+
+
+    <!-- use https://github.com/bonigarcia/webdrivermanager/-->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.0-alpha1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.2.3.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>0.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.11</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>true</filtering>
+        <excludes>
+          <exclude>Drivers/**</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <!--meminitial>2024m</meminitial-->
+          <!--maxmem>4096m</maxmem-->
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+      <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>${surefire.junit47.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <skipTests>true</skipTests>
+          <testFailureIgnore>true</testFailureIgnore>
+          <forkCount>1</forkCount>
+          <reuseForks>false</reuseForks>
+          <useSystemClassLoader>false</useSystemClassLoader>
+          <rerunFailingTestsCount>1</rerunFailingTestsCount>
+       </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${failsafe.version}</version>
+
+        <configuration>
+          <trimStackTrace>false</trimStackTrace>
+          <rerunFailingTestsCount>1</rerunFailingTestsCount>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+  <profile>
+      <!-- Runs from your computer but pointed at QA3 -->
+      <id>LOCAL-QA3</id>
+      <properties>
+        <e2.url>https://e2.qa3.cwtsatotravel.com/</e2.url>
+        <e2.environment>QA3</e2.environment>
+        <webdriver.type>CHROME</webdriver.type>
+        <e2.profile>LOCAL-QA3</e2.profile>
+      </properties>
+    </profile>
+    <profile>
+      <id>XQA3</id>
+      <properties>
+        <e2.environment>XQA3</e2.environment>
+        <e2.url>https://e2.xqa3.cwtsatotravel.com/</e2.url>
+      </properties>
+    </profile>
+    <profile>
+      <id>QA3</id>
+      <properties>
+        <e2.url>https://e2.qa3.cwtsatotravel.com/</e2.url>
+      </properties>
+    </profile>
+    <profile>
+      <id>GRID_CHROME</id>
+      <properties>
+        <webdriver.type>GRID_CHROME</webdriver.type>
+        <e2.profile>GRID_CHROME</e2.profile>
+      </properties>
+    </profile>
+    <profile>
+      <id>DOCKER_GRID_CHROME</id>
+      <properties>
+        <webdriver.type>DOCKER_GRID_CHROME</webdriver.type>
+        <e2.profile>DOCKER_GRID_CHROME</e2.profile>
+      </properties>
+    </profile>
+    <profile>
+      <id>DOCKER_GRID_CHROME_HEADLESS</id>
+      <properties>
+        <webdriver.type>DOCKER_GRID_CHROME_HEADLESS</webdriver.type>
+        <e2.profile>DOCKER_GRID_CHROME_HEADLESS</e2.profile>
+      </properties>
+    </profile>
+  </profiles>
+</project>
