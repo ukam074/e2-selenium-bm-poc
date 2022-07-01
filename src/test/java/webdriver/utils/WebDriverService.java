@@ -59,16 +59,6 @@ public class WebDriverService {
 
 		switch (type) {
 
-			case BROWSER_STACK_EDGE: {
-				driver = loadBrowserStack(config, capabilities);
-
-				break;
-			}
-			case BROWSER_STACK_IE11: {
-				driver = loadBrowserStack(config, capabilities);
-
-				break;
-			}
             case BROWSER_STACK_CHROME: {
                 driver = loadBrowserStack(config, capabilities);
 
@@ -125,86 +115,6 @@ public class WebDriverService {
 				driver = loadGrid(chromeOptions);
 				break;
 			}
-			case GRID_CHROME_WINDOWS10: {
-
-				capabilities.setPlatform(Platform.WIN10);
-				capabilities.setBrowserName(BrowserType.CHROME);
-				ChromeOptions options = new ChromeOptions();
-				options.addArguments("enable-automation");
-				options.addArguments("--start-maximized");
-				capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-
-				chromeOptions.merge(capabilities);
-				driver = loadGrid(chromeOptions);
-				break;
-			}
-			case GRID_FIREFOX: {
-				capabilities.setBrowserName("firefox");
-				capabilities.setCapability("marionette", true);
-				capabilities.setCapability("acceptInsecureCerts", true);
-				capabilities.setPlatform(Platform.WINDOWS);
-				capabilities.setJavascriptEnabled(true);
-				
-				driver = loadGrid(firefoxOptions);
-				break;
-			}
-			case GRID_MICROSOFTEDGE: {
-				capabilities.setPlatform(Platform.WINDOWS);
-				capabilities.setBrowserName(BrowserType.EDGE);
-				capabilities.setCapability("maxSession", 1);
-				capabilities.setCapability("maxInstances", 1);
-
-				edgeOptions.merge(capabilities);
-				driver = loadGrid(edgeOptions);
-				break;
-			}
-
-			case GRID_INTERNETEXPLORER: {
-				capabilities.setPlatform(Platform.WINDOWS);
-				capabilities.setBrowserName(BrowserType.IE);
-				capabilities.setCapability("nativeEvents", false);
-				capabilities.setCapability("unexpectedAlertBehaviour", "accept");
-				capabilities.setCapability("ignoreProtectedModeSettings", true);
-				capabilities.setCapability("disable-popup-blocking", false);
-				capabilities.setCapability("enablePersistentHover", true);
-				capabilities.setCapability("ignoreZoomSetting", true);
-				capabilities.setCapability("maxSession", 1);
-				capabilities.setCapability("maxInstances", 1);
-
-				IeOptions.merge(capabilities);
-				driver = loadGrid(IeOptions);
-				break;
-			}
-
-			case IE: {
-        System.setProperty("webdriver.ie.driver", reader.getProperty("IeDriver.path"));
-				capabilities.setCapability("nativeEvents", false);
-				capabilities.setCapability("unexpectedAlertBehaviour", "accept");
-				capabilities.setCapability("ignoreProtectedModeSettings", true);
-				capabilities.setCapability("disable-popup-blocking", false);
-				capabilities.setCapability("enablePersistentHover", true);
-				capabilities.setCapability("ignoreZoomSetting", true);
-
-				IeOptions.merge(capabilities);
-				driver = new InternetExplorerDriver(IeOptions);
-				break;
-			}
-
-			case EDGE: {
-				WebDriverManager.edgedriver().version("80.0.361.62").setup();
-				edgeOptions.merge(capabilities);
-				driver = new EdgeDriver(edgeOptions);
-				break;
-			}
-
-			case EDGE_LEGACY: {
-				WebDriverManager.edgedriver().version("6.17134").setup();
-				capabilities.setPlatform(Platform.WINDOWS);
-				capabilities.setBrowserName(BrowserType.EDGE);
-				edgeOptions.merge(capabilities);
-				driver = new EdgeDriver(edgeOptions);
-				break;
-			}
 
             case DOCKER_GRID_CHROME_HEADLESS: {
                 capabilities.setPlatform(Platform.LINUX);
@@ -247,39 +157,7 @@ public class WebDriverService {
 				driver = loadGrid(dockerHubEndpoint, chromeOptions);
 				break;
 			}
-			case DOCKER_GRID_FIREFOX: {
-				DesiredCapabilities.firefox();
-				capabilities.setPlatform(Platform.LINUX);
-				capabilities.setBrowserName("firefox");
-        		capabilities.setCapability("name", testName);
-				capabilities.setCapability("acceptInsecureCerts", true);
-				capabilities.setCapability("headless", true);
-        		capabilities.setCapability("browser.tabs.remote.autostart", "false");
-        		capabilities.setCapability("browser.tabs.remote.autostart.2", "false");
 
-        		firefoxOptions.merge(capabilities);
-				driver = loadGrid(dockerHubEndpoint,firefoxOptions);
-				break;
-			}
-			case DOCKER_GRID_LOCAL: {
-				String localHubEndpoint = "http://localhost:4444/wd/hub";
-				WebDriverManager.chromedriver().version("2.44").setup();
-				capabilities.setPlatform(Platform.LINUX);
-				capabilities.setBrowserName(BrowserType.CHROME);
-				//capabilities.setVersion("70");
-				//setting the capability "name" value to the test run name so that the Zalenium Dashboard displays videos by
-				//name rather than id.
-				capabilities.setCapability("name", testName);
-				//chromeOptions.addArguments("--headless");
-				chromeOptions.addArguments("--disable-gpu");
-				chromeOptions.addArguments("--no-sandbox");
-				chromeOptions.addArguments("--start-maximized");
-				chromeOptions.addArguments("--disable-setuid-sandbox");
-				capabilities.setCapability("idleTimeout", 300); //added to troubleshoot zalenium
-				chromeOptions.merge(capabilities);
-				driver = loadGrid(localHubEndpoint, chromeOptions);
-				break;
-			}
 			default: {
 				driver = null;
 				System.err.println("the Web driver was not initialized; type: " + type);
