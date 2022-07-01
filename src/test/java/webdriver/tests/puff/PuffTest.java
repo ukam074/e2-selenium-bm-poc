@@ -39,7 +39,7 @@ public class PuffTest extends AbstractBaseIT {
 		// Login as a traveler and navigate to the Profile Page
 		// -------------------------------
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.setUsernameAndPassword("SE-585866322518925655","Password#1");
+		loginPage.setUsernameAndPassword("SE-585866322518925655","Summer123!");
 		sleep(1000);
 		driver.findElement(By.id("Submit")).click();
 		sleep(5000);
