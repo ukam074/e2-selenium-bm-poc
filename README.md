@@ -68,3 +68,4 @@ use the webdriver manager from https://github.com/bonigarcia/webdrivermanager
 to help maintain binaries. Specific brwoser versions can be specified wit
 `version("number").setup()` in `WebDriverService.java` the list of browser
 version numbers can be found in [github](https://github.com/bonigarcia/webdrivermanager/blob/master/src/main/resources/versions.properties)
+# e2-selenium-bm-poc
